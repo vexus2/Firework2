@@ -40,6 +40,17 @@
     //指の位置にFirewokを作成
     UITouch *t = [touches anyObject];
     CGPoint pt = [t locationInView:self];
+
+    static CGPoint lastpt = {0,0};
+    double dx = lastpt.x - pt.x;
+    double dy = lastpt.y - pt.y;
+    // 一つ前のFireworksオブジェクトより50px離れていなければ生成しない
+    if (sqrt(dx * dx + dy * dy) <= 50){
+        return;
+    }
+
+    lastpt = pt;
+
     Firework *f = [[Firework alloc] initWithCenter:pt owner:_fireworks view:self];
     [_fireworks addObject:f];
 }

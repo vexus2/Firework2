@@ -12,11 +12,13 @@
 
 }
 
+const float FIREBALL_RADIUS = 5.0;
+const float FIREBALL_GRADATION_STEP = 2.0;
+const float PI = 3.14;
+const int FIRE_COUNT = 20;
 
 - (void)draw
 {
-    const float PI = 3.14;
-    const int FIRE_COUNT = 20;
     for (int i = 0; i < FIRE_COUNT; i++) {
         double angle = 2 * PI * i / FIRE_COUNT;
         double x = _center.x + cos(angle) * _radius;
@@ -65,8 +67,6 @@
     CGContextSetBlendMode(context, kCGBlendModePlusLighter);
     [[UIColor colorWithRed:0.1 green:0.0 blue:0.0 alpha:1.0] setFill];
 
-    const float FIREBALL_RADIUS = 5.0;
-    const float FIREBALL_GRADATION_STEP = 2.0;
     CGRect rect = CGRectMake(x, y, FIREBALL_RADIUS * 2 + 1, FIREBALL_RADIUS * 2 + 1);
     for (float i = 0; i < FIREBALL_RADIUS; i += FIREBALL_GRADATION_STEP) {
         CGContextFillEllipseInRect(context, CGRectInset(rect, i, i));
