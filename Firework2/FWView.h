@@ -8,7 +8,14 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FWView : UIView{
+@interface FWView : UIView
+{
     NSMutableArray *_fireworks;
+    NSTimer *_updateTimer;
 }
+- (void)requestUpdate:(NSTimer *)timer;
+
+- (void)stop;
+
+
 @end

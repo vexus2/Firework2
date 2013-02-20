@@ -37,15 +37,20 @@
 */
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+
+    if (_updateTimer == nil) {
+        _updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(requestUpdate:) userInfo:nil repeats:YES];
+    }
+
     //指の位置にFirewokを作成
     UITouch *t = [touches anyObject];
     CGPoint pt = [t locationInView:self];
 
-    static CGPoint lastpt = {0,0};
+    static CGPoint lastpt = {0, 0};
     double dx = lastpt.x - pt.x;
     double dy = lastpt.y - pt.y;
     // 一つ前のFireworksオブジェクトより50px離れていなければ生成しない
-    if (sqrt(dx * dx + dy * dy) <= 50){
+    if (sqrt(dx * dx + dy * dy) <= 50) {
         return;
     }
 
@@ -83,5 +88,19 @@
 {
 }
 
+- (void)requestUpdate:(NSTimer *)timer
+{
+    [self setNeedsDisplay];
+}
+
+- (void)stop
+{
+    [_updateTimer invalidate];
+    _updateTimer = nil;
+    for (Firework *f in _fireworks) {
+        [f stop];
+    }
+    [_fireworks removeAllObjects];
+}
 
 @end

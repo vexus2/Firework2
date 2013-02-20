@@ -31,7 +31,6 @@ const int FIRE_COUNT = 20;
 {
     // 呼ばれるたびに3ポイントずつ半径を大きくする
     _radius += 3;
-    [_view setNeedsDisplay];
 }
 
 - (void)step:(NSTimer *)theTimer
